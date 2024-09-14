@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    align-items: center; /* Center items vertically */
+}
+
+.text-content {
+    padding-right: 16px; /* Space between text and image */
+}
+
+.image img {
+    width: 100%; /* Adjust width of image */
+    height: auto; /* Maintain aspect ratio */
+}

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slideshow with Navbar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+         
+        /* ใช้ CSS pseudo-class สำหรับภาษาไทย */
+        [lang="th"] {
+            font-family: 'Noto Sans Thai', sans-serif;
+        }
+
+        /* ฟอนต์สำหรับภาษาอังกฤษ */
+        [lang="en"] {
+            font-family: 'Heebo', sans-serif;
+        }
+        .slideshow-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .slideshow-image.active {
+            opacity: 1;
+            z-index: -1; /* อยู่ด้านล่างของโลโก้ */
+        }
+        .nav-logo {
+            top: 50%; /* ปรับตำแหน่งแนวตั้งให้ตรงกลาง */
+            left: 50%; /* ปรับตำแหน่งแนวนอนให้ตรงกลาง */
+            transform: translate(-50%, -50%); /* ใช้เพื่อจัดตำแหน่งให้ตรงกลางอย่างแม่นยำ */
+            width: 420px; /* กำหนดขนาดตามต้องการ */
+            height: auto;
+        }
+        /* เริ่มต้นด้วย navbar ที่โปร่งใส */
+        .navbar {
+            transition: background-color 0.3s ease; /* เพิ่มการเปลี่ยนแปลงสีพื้นหลัง */
+        }
+
+        .navbar.transparent {
+            background-color: transparent; /* ทำให้ navbar เป็นโปร่งใส */
+        }
+
+        .navbar.scrolled {
+            background-color: white; /* เปลี่ยนสีพื้นหลังเป็นขาวเมื่อเลื่อนลง */
+        }
+
+        .center-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            align-items: center; /* จัดแนวในแนวตั้งให้กลาง */
+            justify-content: space-between; /* ให้พื้นที่ว่างระหว่างข้อความและรูปภาพ */
+            padding: 20px; /* เพิ่มช่องว่างรอบๆ */
+        }
+        .text {
+            max-width: 50%; /* กำหนดความกว้างสูงสุดของข้อความ */
+        }
+        .image {
+            max-width: 50%; /* กำหนดความกว้างสูงสุดของรูปภาพ */
+        }
+        .image img {
+            max-width: 100%; /* ทำให้รูปภาพเต็มความกว้างของคอนเทนเนอร์ */
+            height: auto; /* ป้องกันการบิดเบี้ยวของรูปภาพ */
+        }
+        
+        
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    
+    <nav class="fixed top-0 left-5 right-5 bg-transparent backdrop-sm p-4 z-50">
+        <img src="image/second shower logo.png" alt="Centered Image" class="nav-logo absolute">
+        <div class="container mx-auto flex justify-between items-center">
+            <ul class="flex space-x-5">
+                <li><a href="#" lang="th" class="text-black hover:text-gray-100">หน้าแรก</a></li>
+                <li><a href="#" lang="th" class="text-black hover:text-gray-100">สินค้า</a></li>
+                <li><a href="#" lang="th" class="text-black hover:text-gray-100">เกี่ยวกับแบรนด์</a></li>
+                
+            </ul>
+            <select id="languageSelector" lang="th" class="text-black p-2 rounded">
+                <option value="th">ภาษาไทย</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+    </nav>
+
+    <div class="relative h-screen flex-shrink-0">
+        <div id="slideshow" class="fixed inset-0 w-full h-full z-[-1]">
+            <div class="slideshow-image active" style="background-image: url('image/re_vita_showerhead_filter_X_image_3.jpg');"></div>
+            <div class="slideshow-image active" style="background-image: url('image/Model Desk Top.jpg');"></div>
+            <div class="slideshow-image active" style="background-image: url('image/re_vita_showerhead_filter_J_image_2.jpg');"></div>
+        </div>     
+    </div>
+
+    <div class="bg-white min-h-screen p-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 lang="th" class="text-4xl font-semibold mb-8 text-center">สินค้าขายดี</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                    <div class="relative w-full h-60 rounded-md mb-4 overflow-hidden">
+                        <img src="image/re_vita_showerhead_filter_X_mouseover_image.jpg" alt="Product Image" class="absolute inset-0 w-full h-full object-cover">
+                    </div>
+
+                    <p lang="th" class="text-20 font-semibold mb-2">ฝักบัวฟิลเตอร์ (แถมไมโครฟิลเตอร์ 5 ชิ้น)</h3> </p>
+                    <p lang="th" class="text-black-600">1,290.00 ฿</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                    <div class="relative w-full h-60 rounded-md mb-4 overflow-hidden">
+                        <img src="image/cutton.png" alt="Product Image" class="absolute inset-0 w-full h-full object-cover">
+                    </div>
+                    <p lang="th" class="text-20 font-semibold mb-2">ไมโครฟิลเตอร์ 5 ชิ้น/กล่อง</h3> </p>
+                    <p lang="th" class="text-black-600">490.00 ฿</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                    <div class="relative w-full h-60 rounded-md mb-4 overflow-hidden">
+                        <img src="image/re_vita_showerhead_filter_M_main_image.jpg" alt="Product Image" class="absolute inset-0 w-full h-full object-cover">
+                    </div>
+                    <p lang="th" class="text-20 font-semibold mb-2">วิตามินฟิลเตอร์ 3 ชิ้น/กล่อง </h3> </p>
+                    <p lang="th" class="text-black-600">( ไม่มีกลิ่น )</p>
+                    <p lang="th" class="text-black-600">790.00 ฿</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                    <div class="relative w-full h-60 rounded-md mb-4 overflow-hidden">
+                        <img src="image/re_vita_showerhead_filter_Z_main_image.jpg" alt="Product Image" class="absolute inset-0 w-full h-full object-cover">
+                    </div>
+                    <p lang="th" class="text-20 font-semibold mb-2">วิตามินฟิลเตอร์ 3 ชิ้น/กล่อง</h3> </p>
+                    <p lang="th" class="text-black-600">( 3 กลิ่น )</p>
+                    <p lang="th" class="text-black-600">790.00 ฿</p>
+                </div>
+                
+            </div>
+        </div>
+        <div class="center-button mt-8">
+            <button lang="th" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-200 transition-colors">
+                ดูสินค้าเพิ่มเติม
+            </button>
+        </div>
+    </div>
+
+    <!-- Brand Story -->
+    <div class="min-h-screen p-8" style="background-color: rgb(207, 225, 225);">
+        <div class="container flex">
+            <div class="text-content flex-1 pr-4">
+                <p lang="en" class="text-2xl">Brand Story <br> <br></p>
+                <p lang="th" class="text-2xl text-gray-800 font-semibold mb-1 text-left">การอาบน้ำของคุณ จะให้ความรู้สึกที่ไม่เหมือนเดิม​​</p>
+                <p lang="th" class="text-2xl text-gray-800 font-semibold mb-1 text-left">ในไม่กี่วินาที แค่คุณใช้ Secondshower​​</p>
+                <p lang="th" class="text-xl"><br> <br>"Second Shower" จะช่วยเริ่มต้นขั้นตอนการดูแลผิวของคุณได้ตั้งแต่ในห้องน้ำ <br>ทำให้การดูแลผิว และเพิ่มความความชุ่มชื้นให้กับผิวนั้นมีประสิทธิภาพมากยิ่งขึ้น​</p>
+                <br><button lang="th" style="background-color: #ebf1f2;" class=" text-black px-4 py-2 rounded hover:bg-blue-200 transition-colors">
+                    อ่านเพิ่มเติม
+                </button>
+            </div>
+                <div class="image flex-1">
+                    <img src="image/women.png" alt="Women">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Slideshow functionality
+        const slideshow = document.getElementById('slideshow');
+        const slides = slideshow.getElementsByClassName('slideshow-image');
+        let currentSlide = 0;
+
+        function showNextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(showNextSlide, 5000);
+
+        // Scroll button functionality
+        const scrollButton = document.getElementById('scrollButton');
+        scrollButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+            });
+        });
+
+        // Language selector functionality
+        const languageSelector = document.getElementById('languageSelector');
+        languageSelector.addEventListener('change', (e) => {
+            console.log(`Language changed to ${e.target.value}`);
+            // Implement actual language change logic here
+        });
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) { // เปลี่ยนค่าตามที่คุณต้องการ
+                navbar.classList.remove('transparent');
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+                navbar.classList.add('transparent');
+            }
+        });
+    </script>
+</body>
+</html>
